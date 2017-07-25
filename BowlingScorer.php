@@ -46,6 +46,7 @@ class BowlingScorer
 		} else {
 			$this->initTurn();
 			$this->recordTurn();
+			$this->strike_count = 0;
 		}
 
 		if ($this->isStrike()) {

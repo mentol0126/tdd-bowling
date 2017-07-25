@@ -226,6 +226,25 @@ class BowlingScorerTest extends TestCase
 
 		$this->bowling_scorer->calc(4);
 		$this->assertEquals(78, $this->bowling_scorer->getTotal());
+
+		// ストライク > スペア > ストライク
+		$this->bowling_scorer->calc(10); // 20
+		$this->assertEquals(88, $this->bowling_scorer->getTotal());
+
+		$this->bowling_scorer->calc(4);
+		$this->assertEquals(96, $this->bowling_scorer->getTotal());
+
+		$this->bowling_scorer->calc(6); // 20
+		$this->assertEquals(108, $this->bowling_scorer->getTotal());
+
+		$this->bowling_scorer->calc(10); // 13
+		$this->assertEquals(128, $this->bowling_scorer->getTotal());
+
+		$this->bowling_scorer->calc(1);
+		$this->assertEquals(130, $this->bowling_scorer->getTotal());
+
+		$this->bowling_scorer->calc(2);
+		$this->assertEquals(134, $this->bowling_scorer->getTotal());
 	}
 
 
