@@ -37,6 +37,7 @@ class BowlingScorer
 
 		if ($this->isStrike()) {
 			$this->score = 'Strike!!';
+			$this->initTurn();
 		} elseif ($this->isSpare()) {
 			$this->score = 'Spare!';
 		} else {

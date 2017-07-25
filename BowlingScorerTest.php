@@ -116,4 +116,21 @@ class BowlingScorerTest extends TestCase
 		$this->bowling_scorer->calc(8);
 		$this->assertEquals(9, $this->bowling_scorer->getScore());
 	}
+
+
+
+	/**
+	 * ストライクをとったらターンが切り変わる
+	 *
+	 * @test
+	 */
+	public function switchTurn()
+	{
+		$this->bowling_scorer->calc(10);
+		$this->assertEquals('Strike!!', $this->bowling_scorer->getScore());
+
+		$this->bowling_scorer->calc(1);
+		$this->bowling_scorer->calc(4);
+		$this->assertEquals(5, $this->bowling_scorer->getScore());
+	}
 }
