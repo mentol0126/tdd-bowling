@@ -84,4 +84,18 @@ class BowlingScorerTest extends TestCase
 		$this->bowling_scorer->calc(6);
 		$this->assertEquals('Spare!', $this->bowling_scorer->getScore());
 	}
+
+
+
+	/**
+	 * ２投で１０ピン未満の場合倒した数がスコアになる
+	 *
+	 * @test
+	 */
+	public function countFall()
+	{
+		$this->bowling_scorer->calc(3);
+		$this->bowling_scorer->calc(4);
+		$this->assertEquals(7, $this->bowling_scorer->getScore());
+	}
 }

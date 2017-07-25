@@ -5,7 +5,7 @@
  */
 class BowlingScorer
 {
-	/** @var string スコア */
+	/** @var string|int スコア */
 	private $score;
 
 	/** @var int 現在倒れてるピンの数 */
@@ -26,6 +26,8 @@ class BowlingScorer
 			$this->score = 'Strike!!';
 		} elseif (10 === $this->now_fall_pin_num) {
 			$this->score = 'Spare!';
+		} else {
+			$this->score = $this->now_fall_pin_num;
 		}
 	}
 
