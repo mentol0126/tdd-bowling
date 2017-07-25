@@ -189,4 +189,54 @@ class BowlingScorerTest extends TestCase
 
 		$this->assertEquals(28, $this->bowling_scorer->getTotal());
 	}
+
+
+
+	/**
+	 * ストライクとスペアの複合スコア計算
+	 *
+	 * @test
+	 */
+	public function spareAndStrikeScore()
+	{
+		// ストライクからのスペア
+		$this->bowling_scorer->calc(10);
+
+		$this->bowling_scorer->calc(3);
+		$this->bowling_scorer->calc(7);
+
+		$this->bowling_scorer->calc(1);
+		$this->bowling_scorer->calc(2);
+
+		$this->assertEquals(34, $this->bowling_scorer->getTotal());
+
+		// スペアからのストライク
+		$this->bowling_scorer->calc(2);
+		$this->bowling_scorer->calc(8); // 20
+
+		$this->bowling_scorer->calc(10); // 17
+
+		$this->bowling_scorer->calc(3);
+		$this->bowling_scorer->calc(4);
+
+		$this->assertEquals(78, $this->bowling_scorer->getTotal());
+	}
+
+
+
+	/**
+	 * ストライクが連続したときのスコア計算
+	 *
+	 * @test
+	 */
+	public function twoStrikeScore()
+	{
+		$this->bowling_scorer->calc(10); // 23
+		$this->bowling_scorer->calc(10); // 18
+
+		$this->bowling_scorer->calc(3);
+		$this->bowling_scorer->calc(5);
+
+		$this->assertEquals(49, $this->bowling_scorer->getTotal());
+	}
 }
