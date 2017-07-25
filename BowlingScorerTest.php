@@ -56,4 +56,32 @@ class BowlingScorerTest extends TestCase
 		$this->bowling_scorer->calc(5);
 		$this->assertNotEquals('Strike!!', $this->bowling_scorer->getScore());
 	}
+
+
+
+	/**
+	 * ２投げた結果の合計が10ピンならスペア
+	 *
+	 * @test
+	 */
+	public function Spare()
+	{
+		$this->bowling_scorer->calc(4);
+		$this->bowling_scorer->calc(6);
+		$this->assertEquals('Spare!', $this->bowling_scorer->getScore());
+	}
+
+
+
+	/**
+	 * ２投げた結果の合計が10でなければスペアではない
+	 *
+	 * @test
+	 */
+	public function notSpare()
+	{
+		$this->bowling_scorer->calc(4);
+		$this->bowling_scorer->calc(6);
+		$this->assertEquals('Spare!', $this->bowling_scorer->getScore());
+	}
 }
