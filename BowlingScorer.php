@@ -20,8 +20,8 @@ class BowlingScorer
 	/** @var int 合計でピンが倒れた数 */
 	private $fall_pin_num_total = 0;
 
-	/** @var bool スペアとったか */
-	private $is_spare = false;
+	/** @var int 次の何投分が加算対象か */
+	private $next_add_count = 0;
 
 
 
@@ -44,9 +44,10 @@ class BowlingScorer
 		if ($this->isStrike()) {
 			$this->score = 'Strike!!';
 			$this->initTurn();
+			$this->next_add_count = 2;
 		} elseif ($this->isSpare()) {
 			$this->score = 'Spare!';
-			$this->is_spare = true;
+			$this->next_add_count = 1;
 		} else {
 			$this->score = $this->now_fall_pin_num;
 		}
@@ -96,9 +97,9 @@ class BowlingScorer
 
 		$this->fall_pin_num_total += $this->fall_pin_num;
 
-		if ($this->is_spare) {
+		if (0 < $this->next_add_count) {
 			$this->fall_pin_num_total += $this->fall_pin_num;
-			$this->is_spare = false;
+			$this->next_add_count--;
 		}
 	}
 

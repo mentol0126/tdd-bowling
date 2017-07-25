@@ -172,4 +172,21 @@ class BowlingScorerTest extends TestCase
 
 		$this->assertEquals(15, $this->bowling_scorer->getTotal());
 	}
+
+
+
+	/**
+	 * ストライクを取った場合、次の２投分のスコアを足せる
+	 *
+	 * @test
+	 */
+	public function strikeScore()
+	{
+		$this->bowling_scorer->calc(10);
+
+		$this->bowling_scorer->calc(6);
+		$this->bowling_scorer->calc(3);
+
+		$this->assertEquals(28, $this->bowling_scorer->getTotal());
+	}
 }
