@@ -154,4 +154,22 @@ class BowlingScorerTest extends TestCase
 
 		$this->assertEquals(20, $this->bowling_scorer->getTotal());
 	}
+
+
+
+	/**
+	 * スペアをとった場合、次の１投分のスコアを足せる
+	 *
+	 * @test
+	 */
+	public function spareScore()
+	{
+		$this->bowling_scorer->calc(4);
+		$this->bowling_scorer->calc(6);
+
+		$this->bowling_scorer->calc(1);
+		$this->bowling_scorer->calc(3);
+
+		$this->assertEquals(15, $this->bowling_scorer->getTotal());
+	}
 }
