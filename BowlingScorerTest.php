@@ -98,4 +98,22 @@ class BowlingScorerTest extends TestCase
 		$this->bowling_scorer->calc(4);
 		$this->assertEquals(7, $this->bowling_scorer->getScore());
 	}
+
+
+
+	/**
+	 * ２投ごとにターンが変わる
+	 *
+	 * @test
+	 */
+	public function turn()
+	{
+		$this->bowling_scorer->calc(2);
+		$this->bowling_scorer->calc(4);
+		$this->assertEquals(6, $this->bowling_scorer->getScore());
+
+		$this->bowling_scorer->calc(1);
+		$this->bowling_scorer->calc(8);
+		$this->assertEquals(9, $this->bowling_scorer->getScore());
+	}
 }
