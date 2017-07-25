@@ -23,7 +23,7 @@ class BowlingScorer
 	/** @var int 次の何投分が加算対象か */
 	private $next_add_count = 0;
 
-	/** @var int ストライク数を計測 */
+	/** @var int ストライク数 */
 	private $strike_count = 0;
 
 
@@ -36,6 +36,10 @@ class BowlingScorer
 	public function calc(int $fall_pin_num)
 	{
 		$this->fall_pin_num = $fall_pin_num;
+
+		if (0 === $this->next_add_count) {
+			$this->strike_count = 0;
+		}
 
 		if (2 > $this->now_throw_num) {
 			$this->recordTurn();
@@ -50,7 +54,6 @@ class BowlingScorer
 			$this->spareProcess();
 		} else {
 			$this->score = $this->now_fall_pin_num;
-			$this->strike_count = 0;
 		}
 	}
 
@@ -98,11 +101,11 @@ class BowlingScorer
 
 		$this->fall_pin_num_total += $this->fall_pin_num;
 
-		if (0 < $this->strike_count) {
+		if (1 < $this->strike_count) {
 			for ($i = 0; $i < $this->strike_count; $i++) {
 				$this->fall_pin_num_total += $this->fall_pin_num;
 			}
-			$this->next_add_count--;
+			$this->strike_count--;
 		} else {
 			if (0 < $this->next_add_count) {
 				$this->fall_pin_num_total += $this->fall_pin_num;
@@ -157,6 +160,5 @@ class BowlingScorer
 	{
 		$this->score = 'Spare!';
 		$this->next_add_count = 1;
-		$this->strike_count = 0;
 	}
 }

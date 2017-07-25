@@ -201,24 +201,30 @@ class BowlingScorerTest extends TestCase
 	{
 		// ストライクからのスペア
 		$this->bowling_scorer->calc(10);
-
 		$this->bowling_scorer->calc(3);
+		$this->assertEquals(16, $this->bowling_scorer->getTotal());
+
 		$this->bowling_scorer->calc(7);
+		$this->assertEquals(30, $this->bowling_scorer->getTotal());
 
 		$this->bowling_scorer->calc(1);
-		$this->bowling_scorer->calc(2);
+		$this->assertEquals(32, $this->bowling_scorer->getTotal());
 
+		$this->bowling_scorer->calc(2);
 		$this->assertEquals(34, $this->bowling_scorer->getTotal());
 
 		// スペアからのストライク
 		$this->bowling_scorer->calc(2);
 		$this->bowling_scorer->calc(8); // 20
+		$this->assertEquals(44, $this->bowling_scorer->getTotal());
 
 		$this->bowling_scorer->calc(10); // 17
+		$this->assertEquals(64, $this->bowling_scorer->getTotal());
 
 		$this->bowling_scorer->calc(3);
-		$this->bowling_scorer->calc(4);
+		$this->assertEquals(70, $this->bowling_scorer->getTotal());
 
+		$this->bowling_scorer->calc(4);
 		$this->assertEquals(78, $this->bowling_scorer->getTotal());
 	}
 
@@ -233,10 +239,33 @@ class BowlingScorerTest extends TestCase
 	{
 		$this->bowling_scorer->calc(10); // 23
 		$this->bowling_scorer->calc(10); // 18
+		$this->assertEquals(30, $this->bowling_scorer->getTotal());
 
 		$this->bowling_scorer->calc(3);
-		$this->bowling_scorer->calc(5);
+		$this->assertEquals(39, $this->bowling_scorer->getTotal());
 
+		$this->bowling_scorer->calc(5);
 		$this->assertEquals(49, $this->bowling_scorer->getTotal());
+	}
+
+
+
+	/**
+	 * ストライクが３連続したときのスコア計算
+	 *
+	 * @test
+	 */
+	public function threeStrikeScore()
+	{
+		$this->bowling_scorer->calc(10); // 30
+		$this->bowling_scorer->calc(10); // 21
+		$this->bowling_scorer->calc(10); // 13
+		$this->assertEquals(60, $this->bowling_scorer->getTotal());
+
+		$this->bowling_scorer->calc(1);
+		$this->assertEquals(63, $this->bowling_scorer->getTotal());
+
+		$this->bowling_scorer->calc(2);
+		$this->assertEquals(67, $this->bowling_scorer->getTotal());
 	}
 }
