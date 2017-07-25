@@ -17,6 +17,9 @@ class BowlingScorer
 	/** @var int 倒れた */
 	private $fall_pin_num = 0;
 
+	/** @var int 合計でピンが倒れた数 */
+	private $fall_pin_num_total = 0;
+
 
 
 	/**
@@ -58,6 +61,16 @@ class BowlingScorer
 
 
 	/**
+	 * @return int 倒れたピン数
+	 */
+	public function getTotal()
+	{
+		return $this->fall_pin_num_total;
+	}
+
+
+
+	/**
 	 * ターンを最初に戻す
 	 */
 	public function initTurn()
@@ -76,6 +89,8 @@ class BowlingScorer
 	{
 		$this->now_fall_pin_num += $this->fall_pin_num;
 		$this->now_throw_num++;
+
+		$this->fall_pin_num_total += $this->fall_pin_num;
 	}
 
 

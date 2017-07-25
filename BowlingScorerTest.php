@@ -133,4 +133,25 @@ class BowlingScorerTest extends TestCase
 		$this->bowling_scorer->calc(4);
 		$this->assertEquals(5, $this->bowling_scorer->getScore());
 	}
+
+
+
+	/**
+	 * ターン毎に倒れたピン数を取得できる
+	 *
+	 * @test
+	 */
+	public function total()
+	{
+		$this->bowling_scorer->calc(2);
+		$this->bowling_scorer->calc(4);
+
+		$this->bowling_scorer->calc(1);
+		$this->bowling_scorer->calc(5);
+
+		$this->bowling_scorer->calc(1);
+		$this->bowling_scorer->calc(7);
+
+		$this->assertEquals(20, $this->bowling_scorer->getTotal());
+	}
 }
